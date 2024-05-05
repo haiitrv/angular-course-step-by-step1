@@ -1,7 +1,18 @@
-Customer Code: <input [(ngModel)]="CustomerModel.CustomerCode" type="text"><br>
-Customer Name: <input [(ngModel)]="CustomerModel.CustomerName" type="text"><br>
-Customer Amount: <input [(ngModel)]="CustomerModel.CustomerAmount" type="text"><br>
-<input (click)="Add()" type="button" value="Add">
+<form [formGroup]="CustomerModel.formCustomerGroup">
+    Customer Code: <input formControlName="CustomerCodeControl" [(ngModel)]="CustomerModel.CustomerCode"
+        type="text"><br>
+    Customer Name: <input formControlName="CustomerNameControl" [(ngModel)]="CustomerModel.CustomerName"
+        type="text"><br>
+    Customer Amount: <input [(ngModel)]="CustomerModel.CustomerAmount" type="text"><br>
+    <input [disabled]="!(CustomerModel.formCustomerGroup.valid)" (click)="Add()" type="button" value="Add">
+</form>
+
+<div [hidden]="!(CustomerModel.formCustomerGroup.controls['CustomerCodeControl'].hasError('pattern'))">CustomerCode
+    format is not correct</div>
+<div [hidden]="!(CustomerModel.formCustomerGroup.controls['CustomerCodeControl'].hasError('required'))">CustomerCode is
+    required</div>
+<div [hidden]="!(CustomerModel.formCustomerGroup.controls['CustomerNameControl'].hasError('required'))">CustomerName is
+    required</div>
 
 <br>
 <table>
